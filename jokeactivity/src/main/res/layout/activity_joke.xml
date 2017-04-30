@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    android:id="@+id/movie_review_cardview"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/default_margin2x"
+                                    app:cardElevation="@dimen/default_elevation"
+                                    app:cardPreventCornerOverlap="false">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="vertical"
+        tools:context="study.pmoreira.jokeactivity.JokeActivity">
+
+        <TextView
+            android:id="@+id/joke_textview"
+            style="@style/jokeTextView"
+            tools:text="What's the best thing about living in Switzerland?"/>
+
+        <TextView
+            android:id="@+id/answer_textview"
+            style="@style/answerTextView"
+            tools:text="I don't know. But the flag is a big plus"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/empty_view"
+            style="@style/emptyView"
+            android:text="@string/empty_view_text"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/answer_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/answer"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

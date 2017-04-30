@@ -1,7 +1,9 @@
 package study.pmoreira.jokerepository;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-class Joke {
+public class Joke implements Serializable {
 
     private String joke;
     private String answer;

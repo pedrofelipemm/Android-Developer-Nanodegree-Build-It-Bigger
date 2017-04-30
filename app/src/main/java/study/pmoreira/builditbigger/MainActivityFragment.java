@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 
 public class MainActivityFragment extends Fragment {
 
-    public MainActivityFragment() {
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
+
+
 
 //        AdView mAdView = (AdView) root.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to

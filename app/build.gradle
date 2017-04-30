@@ -37,4 +37,6 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
     //compile 'com.google.android.gms:play-services-ads:9.8.0'
+
+    compile project(":jokeactivity")
 }

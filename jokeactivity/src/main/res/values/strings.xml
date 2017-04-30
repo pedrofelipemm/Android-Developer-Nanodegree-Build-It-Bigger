@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">JokeActivity</string>
+
+    <string name="answer">answer</string>
+    <string name="error_joke_expected">No joke provided, please refer to the class doc.</string>
+    <string name="empty_view_text">Why so serious?\n\nThere is not joke right now!\n\nWhy don\'t you come back later?</string>
 </resources>
