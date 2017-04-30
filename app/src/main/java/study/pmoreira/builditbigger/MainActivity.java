@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 import study.pmoreira.backend.jokeApi.JokeApi;
-import study.pmoreira.jokeactivity.*;
+import study.pmoreira.jokeactivity.JokeActivity;
 import study.pmoreira.jokerepository.Joke;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 jokes.add(new Joke(item.getJoke(), item.getAnswer()));
             }
 
+            Collections.shuffle(mJokes);
             return jokes;
         }
 
@@ -105,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<Joke> jokes) {
             //hide indicator
             mJokes = jokes;
-            Collections.shuffle(mJokes);
         }
     }
 
