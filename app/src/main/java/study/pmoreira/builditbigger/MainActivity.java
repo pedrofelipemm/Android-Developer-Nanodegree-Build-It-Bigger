@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
+        if (!isValid()) {
+            return;
+        }
+
         if (mJokeIndex >= mJokes.size()) {
             mJokeIndex = 0;
         }
@@ -51,6 +56,20 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, JokeActivity.class);
         intent.putExtra(JokeActivity.EXTRA_JOKE, joke);
         startActivity(intent);
+    }
+
+    public boolean isValid() {
+        boolean isValid = true;
+
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            isValid = false;
+            Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+        } else if (mJokes == null || mJokes.isEmpty()) {
+            isValid = false;
+            new EndpointsAsyncTask(this).execute();
+        }
+
+        return isValid;
     }
 
     private class EndpointsAsyncTask extends AsyncTask<Void, Void, List<Joke>> {
@@ -85,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 jokes.add(new Joke(item.getJoke(), item.getAnswer()));
             }
 
-            Collections.shuffle(mJokes);
+            Collections.shuffle(jokes);
             return jokes;
         }
 
@@ -106,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<Joke> jokes) {
             //hide indicator
             mJokes = jokes;
+
+            if (!NetworkUtils.isNetworkAvailable(mContext)) {
+                Toast.makeText(mContext, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+            } else if (jokes == null || jokes.isEmpty()) {
+                Toast.makeText(mContext, R.string.error_server_error, Toast.LENGTH_SHORT).show();
+            } else {
+                tellJoke(null);
+            }
         }
     }
 
