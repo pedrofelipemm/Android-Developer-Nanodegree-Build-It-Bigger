@@ -8,7 +8,7 @@ public class Joke implements Serializable {
     private String joke;
     private String answer;
 
-    Joke(String joke, String answer) {
+    public Joke(String joke, String answer) {
         this.joke = joke;
         this.answer = answer;
     }
