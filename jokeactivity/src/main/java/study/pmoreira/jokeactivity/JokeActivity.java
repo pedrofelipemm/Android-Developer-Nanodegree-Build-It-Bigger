@@ -23,6 +23,8 @@ public class JokeActivity extends AppCompatActivity {
 
     public static final String EXTRA_JOKE = "EXTRA_JOKE";
 
+    private static final String STATE_ANSWER_VISIBILITY = "STATE_ANSWER_VISIBILITY";
+
     private TextView mJokeTextView;
     private TextView mAnswerTextView;
     private TextView mEmptyViewTextView;
@@ -41,6 +43,15 @@ public class JokeActivity extends AppCompatActivity {
 
         initViews();
         loadJoke();
+
+        if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_ANSWER_VISIBILITY)) {
+            mAnswerTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(STATE_ANSWER_VISIBILITY, mAnswerTextView.isShown());
     }
 
     @Override
