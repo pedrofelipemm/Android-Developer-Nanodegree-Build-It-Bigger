@@ -1,5 +1,6 @@
 package study.pmoreira.jokeactivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -98,5 +99,11 @@ public class JokeActivity extends AppCompatActivity {
         mAnswerTextView.setVisibility(View.GONE);
         mAnswerButton.setVisibility(View.GONE);
         mEmptyViewTextView.setVisibility(View.VISIBLE);
+    }
+
+    public static void startActivity(Context context, Joke joke) {
+        Intent intent = new Intent(context, JokeActivity.class);
+        intent.putExtra(JokeActivity.EXTRA_JOKE, joke);
+        context.startActivity(intent);
     }
 }

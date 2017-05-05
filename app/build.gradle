@@ -1,3 +1,5 @@
+def flavor = ""
+
 apply plugin: 'com.android.application'
 
 android {
@@ -23,13 +25,20 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            if (variant.getName() == "freeDebug" || variant.getName() == "freeRelease") {
+                variant.buildConfigField 'String', 'TEST_DEVICE_ID', testDeviceId
+            }
+        }
     }
     productFlavors {
         free {
             applicationId "study.pmoreira.builditbigger.free"
+            flavor = "free"
         }
         paid {
             applicationId "study.pmoreira.builditbigger.paid"
+            flavor = "paid"
         }
     }
 }
@@ -54,19 +63,21 @@ dependencies {
     compile "com.jakewharton:butterknife:${butterKnifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
-    //freeCompile  'com.google.android.gms:play-services-ads:9.8.0'
-
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     compile 'com.google.api-client:google-api-client-android:1.22.0'
 
     compile project(":jokeactivity")
     compile project(path: ':backend', configuration: 'android-endpoints')
+
+    freeCompile 'com.google.firebase:firebase-core:10.2.4'
+    freeCompile 'com.google.firebase:firebase-ads:10.2.4'
 }
 
-task startServer (dependsOn: ":backend:appengineRun") {
-  project(":backend").afterEvaluate { backend ->
-    backend.extensions.appengine.daemon = true
-  }              
+
+task startServer(dependsOn: ":backend:appengineRun") {
+    project(":backend").afterEvaluate { backend ->
+        backend.extensions.appengine.daemon = true
+    }
 }
 
 task internalTests {
@@ -74,6 +85,10 @@ task internalTests {
     finalizedBy ":backend:appengineStop"
 }
 
-task runTests (dependsOn: ":app:startServer") {
+task runTests(dependsOn: ":app:startServer") {
     finalizedBy ":app:internalTests"
+}
+
+if (flavor == "free") {
+    apply plugin: 'com.google.gms.google-services'
 }
