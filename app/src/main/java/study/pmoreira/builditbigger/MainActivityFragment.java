@@ -19,19 +19,17 @@ import study.pmoreira.jokerepository.Joke;
 
 public class MainActivityFragment extends Fragment implements OnReceiveJokes {
 
-    private static final String TAG = MainActivityFragment.class.getName();
-
     private static final String STATE_JOKES = "STATE_JOKES";
     private static final String STATE_JOKE_INDEX = "STATE_JOKE_INDEX";
 
-    ProgressBar mProgressBar;
-    Button mTellJokeButton;
+    private ProgressBar mProgressBar;
+    private Button mTellJokeButton;
 
     private OnTellJoke mCallback;
     private boolean mTellJoke;
     private int mJokeIndex;
 
-    ArrayList<Joke> mJokes;
+    private ArrayList<Joke> mJokes;
 
     @Override
     public void onAttach(Context context) {
@@ -79,7 +77,7 @@ public class MainActivityFragment extends Fragment implements OnReceiveJokes {
         outState.putInt(STATE_JOKE_INDEX, mJokeIndex);
     }
 
-    void tellJoke() {
+    private void tellJoke() {
         if (!isValid()) {
             return;
         }
@@ -95,7 +93,7 @@ public class MainActivityFragment extends Fragment implements OnReceiveJokes {
         }
     }
 
-    boolean isValid() {
+    private boolean isValid() {
         boolean isValid = true;
 
         if (!NetworkUtils.isNetworkAvailable(getContext()) && (mJokes == null || mJokes.isEmpty())) {
@@ -136,14 +134,16 @@ public class MainActivityFragment extends Fragment implements OnReceiveJokes {
         if (jokes != null) mJokes = new ArrayList<>(jokes);
 
         if (mTellJoke) tellJoke();
+
+        mTellJoke = false;
     }
 
-    void showProgressBar() {
+    private void showProgressBar() {
         mProgressBar.setVisibility(View.VISIBLE);
         mTellJokeButton.setEnabled(false);
     }
 
-    void hideProgressBar() {
+    private void hideProgressBar() {
         mProgressBar.setVisibility(View.GONE);
         mTellJokeButton.setEnabled(true);
     }

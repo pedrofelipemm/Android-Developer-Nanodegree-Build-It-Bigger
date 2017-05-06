@@ -24,9 +24,9 @@ public class MainActivityTest {
     @Test
     public void JokeButtonClickDisplaysInterstitialAd() {
 
+        // Waiting Ads
         try {
-            // Wating Ads
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
